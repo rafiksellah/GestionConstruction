@@ -1,0 +1,45 @@
+{{ form_start(form) }}
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Ajouter un plan</h3>
+            </div>
+            <form>
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="date">Date</label>
+                    {{form_widget(form.date)}}
+                </div>
+                <div class="form-group">
+                    <label for="name">Plan</label>
+                    {{form_widget(form.name)}}
+                </div>
+                <div class="form-group">
+                    <label for="chantier">Chantier</label>
+                    {{form_widget(form.chantier)}}
+                </div>
+                <div class="form-group">
+                    <label for="notes">Notes</label>
+                    {{form_widget(form.notes)}}
+                </div>
+                <div class="form-group">
+                    <label for="priorite">Priorité</label>
+                    {{form_widget(form.priorite)}}
+                </div>
+                <div class="form-group">
+                    <label for="tonage">Tonnage</label>
+                    {{form_widget(form.tonage)}}
+                </div>
+                <div class="form-group">
+                    <label for="File">Fichier pdf</label><br>
+                    {{form_widget(form.fichiers)}}
+                </div>
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+            </div>
+            </form>
+        </div>
+    </div>
+{{ form_end(form) }}

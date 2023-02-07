@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Admin Construction | Dashboard</title>
+       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+
+
+        {% block stylesheets %}
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="{{asset('assets/admin/css/all.css')}}">
+        <!-- Ionicons -->
+        <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+        <!-- Tempusdominus Bootstrap 4 -->
+        <link rel="stylesheet" href="{{asset('assets/admin/css/tempusdominus-bootstrap-4.min.css')}}">
+        <link rel="stylesheet" href="{{asset('assets/admin/css/adminlte.min.css')}}">
+        <link rel="stylesheet" href="{{asset('assets/admin/css/dataTables.bootstrap4.min.css')}}">
+        <link rel="stylesheet" href="{{asset('assets/admin/css/buttons.bootstrap4.min.css')}}">
+        <link rel="stylesheet" href="{{asset('assets/admin/css/dataTables.bootstrap4.min.css')}}">
+        
+
+        {% endblock %}
+
+    </head>
+    <body class="hold-transition sidebar-mini layout-fixed">
+        <div class="wrapper">
+            
+            {% include "includeAdmin/navbarAdmin.html.twig" %}
+            {% include "includeAdmin/sidebar.html.twig" %}
+            {% block body %}
+            
+            {% endblock %}
+            <footer class="main-footer">
+                <strong>Copyright &copy; 2023 
+                {% if app.user.roles[0]=="ROLE_USER" %}
+                    <a href="{{path('app_client')}}">Construction</a>.
+                 {% elseif  app.user.roles[0]=="ROLE_ADMIN" %}
+                    <a href="{{path('app_admin')}}">Construction</a>.
+                {% endif %}
+                
+                
+                </strong>
+                All rights reserved.
+                <div class="float-right d-none d-sm-inline-block">
+                <b>Version</b> 1.0
+                </div>
+            </footer>
+
+            <aside class="control-sidebar control-sidebar-dark">
+            </aside>
+        </div>
+        
+        
+
+        
+        {% block javascripts %}
+            <script src={{asset('assets/admin/js/jquery.min.js')}}></script>
+            <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+            <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+            <script src={{asset('assets/admin/js/jquery.dataTables.min.js')}}></script>
+            <script src={{asset('assets/admin/js/bootstrap.bundle.min.js')}}></script>
+            <script src={{asset('assets/admin/js/dataTables.bootstrap4.min.js')}}></script>
+            <script src={{asset('assets/admin/js/dataTables.responsive.min.js')}}></script>
+            <script src={{asset('assets/admin/js/adminlte.min.js')}}></script>
+            <script src={{asset('assets/admin/js/responsive.bootstrap4.min.js')}}></script>
+            <script src={{asset('assets/admin/js/jszip.min.js')}}></script>
+            <script src={{asset('assets/admin/js/pdfmake.min.js')}}></script>
+            <script src={{asset('assets/admin/js/vfs_fonts.js')}}></script>
+            <script src={{asset('assets/admin/js/images.js')}}></script>
+            <script src={{asset('assets/admin/js/price.js')}}></script>
+
+            <script>
+                $(function () {
+                    $("#example1").DataTable({
+                    "responsive": true, "lengthChange": false, "autoWidth": false,
+                    "buttons": ["copy", "csv", "excel", "pdf", "print"]
+                    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+                    $('#example2').DataTable({
+                    "paging": true,
+                    "lengthChange": false,
+                    "searching": false,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false,
+                    "responsive": true,
+                    });
+                });
+            </script>
+            <script>
+                $(document).ready(function() {
+                    $('.js-datepicker').datepicker({
+                        format: 'yyyy-mm-dd'
+                    });
+                });
+            </script>
+        {% endblock %}
+    </body>
+</html>

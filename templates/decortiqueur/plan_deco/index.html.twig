@@ -1,0 +1,107 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block title %}Plan index{% endblock %}
+
+{% block body %}
+    <div class="content-wrapper">
+      <div class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1 class="m-0">plans</h1>
+            </div> 
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item active">Plans</li>
+              </ol>
+            </div> 
+          </div> 
+        </div> 
+      </div>
+      
+      <section class="content">
+        <div class="container-fluid">
+          {# <a class="btn btn-success mt-2 mb-2" href="{{ path('app_admin_plan_admin_new') }}">Ajouter un plan</a> #}
+          <table id="example1" class="table table-striped mt-4">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Client</th>
+                    <th>Name</th>
+                    <th>Chantier</th>
+                    <th>Tonage</th>
+                    <th>Notes</th>
+                    <th>Date</th>
+                    <th>Priorité</th>
+                    <th>Etat</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for plan in plans %}
+                <tr>
+                    <td>{{ plan.id }}</td>
+                    <td>{{ plan.user.nom }} {{ plan.user.prenom}}</td>
+                    <td>{{ plan.name }}</td>
+                    <td>{{ plan.chantier }}</td>
+                    <td>{{ plan.tonage }} Kg</td>
+                    <td>{{ plan.notes }}</td>
+                    <td>{{ plan.date ? plan.date|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>{{ plan.priorite }}</td>
+                    <td>
+                      {% if plan.etat ==
+                            constant('App\\Entity\\Plan::PLAN_STATUS_ENATTENTE') %}
+                            <h6><span class="badge badge-info ml-2">En attente</span></h6>
+                            {% elseif plan.etat ==
+                            constant('App\\Entity\\Plan::PLAN_STATUS_ENCOURS') %}
+                        <h6><span class="badge badge-primary ml-2">Encours</span></h6>
+												{% elseif plan.etat ==
+												constant('App\\Entity\\Plan::PLAN_STATUS_ACTIVE') %}
+                        <h6><span class="badge badge-danger ml-2">Terminer</span></h6>
+                        {% endif %}
+                    <td>
+                        <div class="dropdown">
+                                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    Action
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                    <a class="dropdown-item" href="{{ path('app_decortiqueur_plan_deco_show', {'id': plan.id}) }}"><i class="fa fa-search"></i> Afficher le plan</a>
+                                    {% if plan.etat != constant('App\\Entity\\Plan::PLAN_STATUS_ENCOURS') %}
+                                      <a class="dropdown-item" href="#">
+                                        {{ include('decortiqueur/plan_deco/_decortiquer_form.html.twig') }}
+                                      </a>
+                                    {% endif %}
+                                    
+                                    {% if plan.etat !=
+												              constant('App\\Entity\\Plan::PLAN_STATUS_ACTIVE') %}
+                                     <a href="{{ path('app_decortiqueur_plan_verification_decortiquer', {'id': plan.id}) }}">Terminer</a><br>
+                                      
+                                      {# <a class="dropdown-item" href="#">
+                                        <form method="post" action="{{ path('app_decortiqueur_plan_deco_terminer', {'id': plan.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                                            <input type="hidden" name="_token" value="{{ csrf_token('terminer' ~ plan.id) }}">
+                                              <i class="fa fa-check"></i> 
+                                            <button style="border:none; background:none; padding-left:14px;">Terminer</button>
+                                        </form>
+                                      </a> #}
+                                   {% endif %}   
+                                </ul>
+                            </div>
+                        {# <a href="{{ path('app_decortiqueur_plan_deco_show', {'id': plan.id}) }}">Afficher</a><br>
+                        <a style="color:green" href="{{ path('app_decortiqueur_plan_deco_show', {'id': plan.id}) }}">decortiquer</a><br>
+                        <a style="color:red" href="{{ path('app_decortiqueur_plan_deco_show', {'id': plan.id}) }}">Terminer</a><br> #}
+                        
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="10">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div> 
+      </section>
+    </div>
+{% endblock %}

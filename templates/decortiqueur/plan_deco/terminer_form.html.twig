@@ -1,0 +1,4 @@
+<form method="post" action="{{ path('app_decortiqueur_plan_deco_terminer', {'id': plan.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir valider ce plan?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('terminer' ~ plan.id) }}">
+    <button class="btn btn-success">Terminer</button>
+</form>

@@ -1,0 +1,13 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block title %}Edit Plan{% endblock %}
+
+{% block body %}
+    <h1>Edit Plan</h1>
+
+    {{ include('decortiqueur/plan_deco/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_decortiqueur_plan_deco_index') }}">back to list</a>
+
+    {{ include('decortiqueur/plan_deco/_delete_form.html.twig') }}
+{% endblock %}

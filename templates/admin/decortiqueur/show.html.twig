@@ -1,0 +1,64 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block title %}Decortiqueur{% endblock %}
+
+{% block body %}
+    <div class="content-wrapper">
+      <div class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1 class="m-0">Utilisateur</h1>
+            </div> 
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item active">Utilisateur</li>
+              </ol>
+            </div> 
+          </div> 
+        </div> 
+      </div> 
+      <section class="content">
+        <div class="container-fluid">
+          
+              <table id="example1" class="table table-striped">
+                <tbody>
+                    <tr>
+                        <th>Id</th>
+                        <td>{{ decortiqueur.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td>{{ decortiqueur.user.email }}</td>
+                    </tr>
+                    <tr>
+                        <th>Nom</th>
+                        <td>{{ decortiqueur.user.nom }}</td>
+                    </tr>
+                    <tr>
+                        <th>Prenom</th>
+                        <td>{{ decortiqueur.user.prenom }}</td>
+                    </tr>
+                    <tr>
+                        <th>Phone</th>
+                        <td>{{ decortiqueur.user.phone }}</td>
+                    </tr>
+                    <tr>
+                        <th>Diplome</th>
+                        <td>{{ decortiqueur.diplome }}</td>
+                    </tr>
+                    <tr>
+                        <th>Description</th>
+                        <td>{{ decortiqueur.description }}</td>
+                    </tr>
+                    <tr>
+                        <th>Adresse</th>
+                        <td>{{ decortiqueur.user.adresse }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div> 
+      </section>    
+    </div> 
+{% endblock %}

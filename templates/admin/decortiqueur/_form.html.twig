@@ -1,0 +1,53 @@
+{{ form_start(form) }}
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Ajouter un Decortiqueur</h3>
+            </div>
+            <form>
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="nom">Nom</label>
+                    {{form_widget(form.user.nom)}}
+                </div>
+                <div class="form-group">
+                    <label for="prenom">Prenom</label>
+                    {{form_widget(form.user.prenom)}}
+                </div>
+                <div class="form-group">
+                    <label for="phone">Telephone</label>
+                    {{form_widget(form.user.phone)}}
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    {{form_widget(form.user.email)}}
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    {{form_widget(form.user.plainPassword)}}
+                </div>
+                <div class="form-group">
+                    <label for="diplome">Diplome</label>
+                    {{form_widget(form.diplome)}}
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    {{form_widget(form.description)}}
+                </div>
+                <div class="form-group">
+                    <label for="adresse">Adresse</label><br>
+                    {{form_widget(form.user.adresse)}}
+                </div>
+                <div class="form-group" style="display:none">
+                    <label for="entreprise">entreprise</label><br>
+                    {{form_widget(form.user.entreprise)}}
+                </div>
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+            </div>
+            </form>
+        </div>
+    </div>
+{{ form_end(form) }}

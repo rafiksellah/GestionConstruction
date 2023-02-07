@@ -1,0 +1,80 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block title %}Plan index{% endblock %}
+
+{% block body %}
+    <div class="content-wrapper">
+      <div class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1 class="m-0">plans</h1>
+            </div> 
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item active">Plans</li>
+              </ol>
+            </div> 
+          </div> 
+        </div> 
+      </div>
+      
+      <section class="content">
+        <div class="container-fluid">
+          <a class="btn btn-success mt-2 mb-2" href="{{ path('app_plan_new') }}">Ajouter un plan</a>
+          <table id="example1" class="table table-striped mt-4">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Chantier</th>
+                    <th>Tonage</th>
+                    <th>Notes</th>
+                    <th>Date</th>
+                    <th>Priorité</th>
+                    <th>Etat</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for plan in plans %}
+                <tr>
+                    <td>{{ plan.id }}</td>
+                    <td>{{ plan.name }}</td>
+                    <td>{{ plan.chantier }}</td>
+                    <td>{{ plan.tonage }} Kg</td>
+                    <td>{{ plan.notes }}</td>
+                    <td>{{ plan.date ? plan.date|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>{{ plan.priorite }}</td>
+                    <td>
+                      {% if plan.etat ==
+												constant('App\\Entity\\Plan::PLAN_STATUS_ENATTENTE') %}
+												<h6><span class="badge badge-info ml-2">En attente</span></h6>
+												{% elseif plan.etat ==
+												constant('App\\Entity\\Plan::PLAN_STATUS_ENCOURS') %}
+                        <h6><span class="badge badge-primary ml-2">Encours</span></h6>
+												{% elseif plan.etat ==
+												constant('App\\Entity\\Plan::PLAN_STATUS_ACTIVE') %}
+                        <h6><span class="badge badge-danger ml-2">Terminer</span></h6>
+                        {% endif %}
+                    <td>
+                        <a href="{{ path('app_plan_show', {'id': plan.id}) }}"><i class="fa-solid fa-magnifying-glass mr-2 fa-2x"></i></a>
+                        {% if plan.etat ==
+												constant('App\\Entity\\Plan::PLAN_STATUS_ENATTENTE') %}
+                          <a href="{{ path('app_plan_edit', {'id': plan.id}) }}"><i class="fa-solid fa-edit fa-2x"></i></a>
+                        {% endif %}
+                        
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="10">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div> 
+      </section>
+    </div>
+{% endblock %}
