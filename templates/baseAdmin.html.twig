@@ -3,7 +3,17 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Admin Construction | Dashboard</title>
+        <title>
+        {% if (app.user.roles[0]=="ROLE_USER") %}
+            Client Construction | Dashboard
+        {% endif %}
+        {% if (app.user.roles[0]=="ROLE_ADMIN") %}
+            Admin Construction | Dashboard
+        {% endif %}
+        {% if (app.user.roles[0]=="ROLE_DECORTIQUEUR") %}
+            Décortiqueur Construction | Dashboard
+        {% endif %}
+        </title>
        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 
 

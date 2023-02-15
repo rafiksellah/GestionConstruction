@@ -51,6 +51,22 @@
           {% endif %}
           {% if is_granted('ROLE_ADMIN') %}
             <li class="nav-item">
+              <a href="{{path('app_statistique')}}" class="nav-link">
+                <i class="far fa-file nav-user"></i>
+                <p>
+                  Statistiques Client
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{path('app_statistique_deco')}}" class="nav-link">
+                <i class="far fa-file nav-user"></i>
+                <p>
+                  Statistiques décortiqueur
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
             <a href="{{path('app_admin_plan_admin_index')}}" class="nav-link">
               <i class="far fa-file nav-icon"></i>
               <p>

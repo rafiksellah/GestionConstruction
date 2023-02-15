@@ -21,6 +21,7 @@ class PlanType extends AbstractType
             ->add('name', TextType::class, [
             'label' => false,
                 'attr' => ['class' => 'form-control'],
+                
             ])  
             ->add('chantier',TextType::class, [
                 'label' => false,
@@ -36,10 +37,6 @@ class PlanType extends AbstractType
                     'multiple' => false,
                     'label' => 'Rôles' 
                 ])
-            ->add('tonage',NumberType::class,[
-                'label' => false,
-                'attr' => ['class' => 'form-control'],
-            ])
             ->add('notes',TextareaType::class,
             [
                 'label' => false,

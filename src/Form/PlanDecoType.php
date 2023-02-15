@@ -22,6 +22,18 @@ class PlanDecoType extends AbstractType
             'label' => false,
                 'attr' => ['class' => 'form-control'],
             ])  
+            ->add('tonnageTS', TextType::class, [
+            'label' => false,
+                'attr' => ['class' => 'form-control'],
+            ])  
+            ->add('tonnageCF', TextType::class, [
+            'label' => false,
+                'attr' => ['class' => 'form-control'],
+            ])  
+            ->add('tonnageCA', TextType::class, [
+            'label' => false,
+                'attr' => ['class' => 'form-control'],
+            ])  
             ->add('fichierDecor',FileType::class,[
                 'label' => 'Fichier pdf',
                 'multiple' => true,

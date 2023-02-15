@@ -37,6 +37,10 @@
                             <td>{{ plan.chantier }}</td>
                         </tr>
                         <tr>
+                            <th>Tonage</th>
+                            <td>{{ plan.tonage }}</td>
+                        </tr>
+                        <tr>
                             <th>Notes</th>
                             <td>{{ plan.notes }}</td>
                         </tr>
@@ -49,7 +53,11 @@
                             <td>{{ plan.priorite }}</td>
                         </tr>
                         <tr>
-                            <th>Priorite</th>
+                            <th>Client</th>
+                            <td>{{ plan.user.entreprise }}</td>
+                        </tr>
+                        <tr>
+                            <th>Fichiers Client</th>
                             <td>
                                 {% for fichier in plan.fichiers %}
                                     <a href="{{ asset('/uploads/fichierClient/'~fichier.name) }}" alt="" width="50"><i class="fa fa-file fa-2x"></i>{{fichier.name}} </a>
@@ -60,8 +68,10 @@
                         </tr>
                     </tbody> 
                 </table>      
+        </div><br>
+        <div class="text-center">
+            {{ include('decortiqueur/plan_deco/_decortiquer_form.html.twig') }}
         </div> 
       </section>    
     </div>
-
 {% endblock %}

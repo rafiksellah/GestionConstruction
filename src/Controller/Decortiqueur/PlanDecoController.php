@@ -71,6 +71,15 @@ class PlanDecoController extends AbstractController
         ]);
     }
 
+    #[Route('/affichage/decortiquer/{id}', name: 'app_decortiqueur_plan_deco_afficher', methods: ['GET'])]
+    public function  affichDecortiquer(Request $request, Plan $plan, PlanRepository $planRepository): Response
+    {
+        $deco = $this->getUser();
+        return $this->renderForm('decortiqueur/plan_deco/affiche.html.twig', [
+            'plan' => $plan,
+        ]);
+    }
+    
     #[Route('/decortiquer/{id}', name: 'app_decortiqueur_plan_deco_decortiquer', methods: ['POST'])]
     public function decortiquer(Request $request, Plan $plan, PlanRepository $planRepository): Response
     {
@@ -110,13 +119,14 @@ class PlanDecoController extends AbstractController
                 $plan->addFiechierDeco($file);
             }
             $deco = $this->getUser();
-            $plan->setEtat(PLAN::PLAN_STATUS_ACTIVE);
             $plan->setDecortiqueurs($deco);
             $planRepository->save($plan, true);
+            $this->addFlash('success', 'Votre demande a été envoyé ');
 
+
+            // return $this->redirectToRoute('app_decortiqueur_plan_deco_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->redirectToRoute('app_decortiqueur_plan_deco_index', [], Response::HTTP_SEE_OTHER);
 
         return $this->renderForm('decortiqueur/plan_deco/plan_deco.html.twig', [
             'form' => $form,

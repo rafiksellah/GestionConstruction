@@ -26,9 +26,6 @@ class Plan
     #[ORM\Column(length: 255)]
     private ?string $chantier = null;
 
-    #[ORM\Column]
-    private ?int $tonage = null;
-
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $notes = null;
 
@@ -59,6 +56,18 @@ class Plan
 
     #[ORM\OneToMany(mappedBy: 'plan', targetEntity: FichierDecor::class,cascade:["persist"])]
     private Collection $fiechierDeco;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $tonage = 0;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $tonnageTS = 0;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $tonnageCF = 0;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $tonnageCA = 0;
 
     /**
      * @ORM\PrePersist
@@ -101,18 +110,6 @@ class Plan
     public function setChantier(string $chantier): self
     {
         $this->chantier = $chantier;
-
-        return $this;
-    }
-
-    public function getTonage(): ?int
-    {
-        return $this->tonage;
-    }
-
-    public function setTonage(int $tonage): self
-    {
-        $this->tonage = $tonage;
 
         return $this;
     }
@@ -268,6 +265,54 @@ class Plan
                 $fiechierDeco->setPlan(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTonage(): ?float
+    {
+        return $this->tonage;
+    }
+
+    public function setTonage(?float $tonage): self
+    {
+        $this->tonage = $tonage;
+
+        return $this;
+    }
+
+    public function getTonnageTS(): ?float
+    {
+        return $this->tonnageTS;
+    }
+
+    public function setTonnageTS(?float $tonnageTS): self
+    {
+        $this->tonnageTS = $tonnageTS;
+
+        return $this;
+    }
+
+    public function getTonnageCF(): ?float
+    {
+        return $this->tonnageCF;
+    }
+
+    public function setTonnageCF(?float $tonnageCF): self
+    {
+        $this->tonnageCF = $tonnageCF;
+
+        return $this;
+    }
+
+    public function getTonnageCA(): ?float
+    {
+        return $this->tonnageCA;
+    }
+
+    public function setTonnageCA(float $tonnageCA): self
+    {
+        $this->tonnageCA = $tonnageCA;
 
         return $this;
     }

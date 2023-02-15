@@ -50,10 +50,6 @@ class Plan1Type extends AbstractType
                 'multiple' => false,
                 'label' => 'Rôles' 
             ])
-            ->add('tonage',NumberType::class,[
-                'label' => false,
-                'attr' => ['class' => 'form-control'],
-            ])
             ->add('notes',TextareaType::class,
             [
                 'label' => false,

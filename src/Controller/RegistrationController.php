@@ -28,6 +28,17 @@ class RegistrationController extends AbstractController
     #[Route('/register', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
+        if ($this->getUser()) {
+            if ($this->getUser()->getRoles()=="ROLE_USER")
+            return $this->redirectToRoute('app_client');
+            elseif($this->getUser()->getRoles()[0]=="ROLE_DECORTIQUEUR") {
+                return $this->redirectToRoute('app_decortiqueur_plan_deco_index');
+            }
+            elseif($this->getUser()->getRoles()[0]=="ROLE_ADMIN") {
+                return $this->redirectToRoute('app_admin');
+
+            }
+        }
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
@@ -40,20 +51,19 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
-
+            $user->setIsClient(1);
             $entityManager->persist($user);
             $entityManager->flush();
-
+            $this->addFlash('success', 'Vous venez de recevoir un mail de confirmation sur votre boite mail');
             // generate a signed url and email it to the user
             $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
                 (new TemplatedEmail())
-                    ->from(new Address('contact@gmail.com', 'Team Management'))
+                    ->from(new Address('contact@decorticage.fr', 'Team Management'))
                     ->to($user->getEmail())
                     ->subject('Please Confirm your Email')
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
             // do anything else you need here, like send an email
-
             return $this->redirectToRoute('app_login');
         }
 
@@ -77,7 +87,7 @@ class RegistrationController extends AbstractController
         }
 
         // @TODO Change the redirect on success and handle or remove the flash message in your templates
-        $this->addFlash('success', 'Your email address has been verified.');
+        $this->addFlash('success', 'votre compte est maintenant actif.');
 
         return $this->redirectToRoute('app_client');
     }

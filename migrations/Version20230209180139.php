@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20230205103231 extends AbstractMigration
+final class Version20230209180139 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,16 +20,12 @@ final class Version20230205103231 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE plan ADD decortiqueur_id INT DEFAULT NULL');
-        $this->addSql('ALTER TABLE plan ADD CONSTRAINT FK_DD5A5B7DB8AB9504 FOREIGN KEY (decortiqueur_id) REFERENCES `user` (id)');
-        $this->addSql('CREATE INDEX IDX_DD5A5B7DB8AB9504 ON plan (decortiqueur_id)');
+        $this->addSql('ALTER TABLE plan ADD tonnage_ts DOUBLE PRECISION DEFAULT NULL, ADD tonnage_cf DOUBLE PRECISION DEFAULT NULL, ADD tonnage_ca DOUBLE PRECISION DEFAULT NULL');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE plan DROP FOREIGN KEY FK_DD5A5B7DB8AB9504');
-        $this->addSql('DROP INDEX IDX_DD5A5B7DB8AB9504 ON plan');
-        $this->addSql('ALTER TABLE plan DROP decortiqueur_id');
+        $this->addSql('ALTER TABLE plan DROP tonnage_ts, DROP tonnage_cf, DROP tonnage_ca');
     }
 }
