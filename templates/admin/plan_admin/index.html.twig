@@ -41,9 +41,9 @@
             </thead>
             <tbody>
             {% for plan in plans %}
-                <tr>
+                <tr class="{% if plan.priorite=="Urgent" %}bg-danger{% endif %}">
                     <td>{{ plan.id }}</td>
-                    <td>{{ plan.user.nom }} {{ plan.user.prenom}}</td>
+                    <td>{{ plan.user.entreprise }}</td>
                     <td>{{ plan.name }}</td>
                     <td>{{ plan.chantier }}</td>
                     <td>{{ plan.tonage }} Kg</td>

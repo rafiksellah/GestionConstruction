@@ -29,7 +29,6 @@
                     <th>Id</th>
                     <th>Name</th>
                     <th>Chantier</th>
-                    <th>Tonage</th>
                     <th>Notes</th>
                     <th>Date</th>
                     <th>Priorité</th>
@@ -39,11 +38,10 @@
             </thead>
             <tbody>
             {% for plan in plans %}
-                <tr>
+                <tr class="{% if plan.priorite=="Urgent" %}bg-danger{% endif %}">
                     <td>{{ plan.id }}</td>
                     <td>{{ plan.name }}</td>
                     <td>{{ plan.chantier }}</td>
-                    <td>{{ plan.tonage }} Kg</td>
                     <td>{{ plan.notes }}</td>
                     <td>{{ plan.date ? plan.date|date('Y-m-d H:i:s') : '' }}</td>
                     <td>{{ plan.priorite }}</td>

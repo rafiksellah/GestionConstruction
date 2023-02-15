@@ -34,6 +34,7 @@ class UserController extends AbstractController
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
@@ -67,6 +68,7 @@ class UserController extends AbstractController
         $form = $this->createForm(UsereditType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            dd($request->request->get('useredit'));
             // dd($request->request->get('useredit'));echo "<pre>";print_r($request->request);die();
             
             if ($request->request->get('useredit')['password']!="") {

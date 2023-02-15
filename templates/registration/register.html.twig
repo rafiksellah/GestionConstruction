@@ -1,109 +1,123 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Inscription {% endblock %}
 
 {% block body %}
-    {% for flash_error in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-    {% endfor %}
-    <div class="register-box">
-  <div class="register-logo">
-  </div>
 
-  <div class="card">
-    <div class="card-body register-card-body">
-      <p class="login-box-msg">Inscription</p>
+  <div class="container mt-2 py-5">
+    <div class="row">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-xl-12">
+        <div class="card rounded-3 text-black">
+          <div class="row g-0">
+            <div class="col-lg-7">
+              {% for flash_error in app.flashes('verify_email_error') %}
+              <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+              {% endfor %}
+              <div class="card">
+                <div class="card-body register-card-body">
+                  <p class="login-box-msg text-center">Inscription</p>
 
-      <form action="#" method="post">
-        {{ form_start(registrationForm) }}
-        <div class="input-group mb-3">
-            {{ form_widget(registrationForm.nom) }}
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-user"></span>
+                  <form action="#" method="post">
+                    {{ form_start(registrationForm) }}
+                    <div class="input-group mb-3">
+                        {{ form_widget(registrationForm.nom) }}
+                      <div class="input-group-append">
+                        <div class="input-group-text">
+                          <span class="fas fa-user"></span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        {{ form_widget(registrationForm.prenom) }}
+                      <div class="input-group-append">
+                        <div class="input-group-text">
+                          <span class="fas fa-user"></span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        {{ form_widget(registrationForm.phone) }}
+                      <div class="input-group-append">
+                        <div class="input-group-text">
+                          <span class="fas fa-phone"></span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        {{ form_widget(registrationForm.entreprise) }}
+                      <div class="input-group-append">
+                        <div class="input-group-text">
+                          <i class="fas fa-city"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        {{ form_widget(registrationForm.adresse) }}
+                      <div class="input-group-append">
+                        <div class="input-group-text">
+                    <i class="fas fa-address-card"></i>
+                    </div>
+                  </div>
+                </div>
+                <div class="input-group mb-3">
+                  {{ form_widget(registrationForm.email) }}
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <span class="fas fa-envelope"></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="input-group mb-3">
+                  {{ form_widget(registrationForm.plainPassword.first, {'attr': {'class': 'form-control','placeholder': 'mot de passe' }}) }}
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <span class="fas fa-lock"></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="input-group mb-3">
+                  {{ form_widget(registrationForm.plainPassword.second, {'attr': {'class': 'form-control','placeholder': 'Confirmer mot de passe' }}) }}
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <span class="fas fa-lock"></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                    <div class="input-group-append ">
+                      {{form_widget(registrationForm.agreeTerms)}}
+                    <label class="mt-2 ml-1" for="agreeterms">J’accepte  la politique de confidentialité et je valide la création de mon compte</label>
+                  </div>
+                </div>
+                {% if registrationForm.vars.errors|length > 0 %}
+                  <div class="alert alert-danger">
+                      <ul>
+                          {% for error in registrationForm.vars.errors %}
+                              <li>{{ error.message }}</li>
+                          {% endfor %}
+                      </ul>
+                  </div>
+              {% endif %}
+                <div class="">
+                  <button type="submit" class="btn btn-primary btn-block">Inscription</button>
+                </div>
+                {{ form_end(registrationForm) }}
+              </form><br>
+              <div class="text-center">
+                <a href="{{path('app_login')}}" class="text-center">J'ai deja un compte</a>
+              </div>
+            </div>
+            <!-- /.form-box -->
+          </div><!-- /.card -->
+            </div>
+            <div class="col-lg-5 d-flex align-items-center gradient-custom-2">
+                <img width="100%" height="95%" src=" {{asset('assets/img/logins.jpg')}} " alt="">
             </div>
           </div>
         </div>
-        <div class="input-group mb-3">
-            {{ form_widget(registrationForm.prenom) }}
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-user"></span>
-            </div>
-          </div>
-        </div>
-        <div class="input-group mb-3">
-            {{ form_widget(registrationForm.phone) }}
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-phone"></span>
-            </div>
-          </div>
-        </div>
-        <div class="input-group mb-3">
-            {{ form_widget(registrationForm.entreprise) }}
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <i class="fas fa-city"></i>
-            </div>
-          </div>
-        </div>
-        <div class="input-group mb-3">
-            {{ form_widget(registrationForm.adresse) }}
-          <div class="input-group-append">
-            <div class="input-group-text">
-            <i class="fas fa-address-card"></i>
-            </div>
-          </div>
-        </div>
-        <div class="input-group mb-3">
-          {{ form_widget(registrationForm.email) }}
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-envelope"></span>
-            </div>
-          </div>
-        </div>
-        <div class="input-group mb-3">
-          {{ form_widget(registrationForm.plainPassword) }}
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-lock"></span>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-8">
-            <div class="icheck-primary">
-              {# <input type="checkbox" id="agreeTerms" name="terms" value="agree"> #}
-            <label for="agreeterms">J’accepte  la politique de confidentialité et je valide la création de mon compte</label>
-              {{form_widget(registrationForm.agreeTerms)}}
-            </div>
-          </div>
-          <!-- /.col -->
-          <div class="col-4">
-            <label for="recaptcha">Recaptcha</label>
-            {{ form_widget(registrationForm.captcha) }}
-          </div>
-          <!-- /.col -->
-        </div>
-        <div class="">
-          <button type="submit" class="btn btn-primary btn-block">Register</button>
-        </div>
-        {{ form_end(registrationForm) }}
-      </form>
-      <a href="{{path('app_login')}}" class="text-center">J'ai deja un compte</a>
+      </div>
     </div>
-    <!-- /.form-box -->
-  </div><!-- /.card -->
-</div>
-    {# {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
-
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }} #}
+    </div>
+  </div>
 {% endblock %}

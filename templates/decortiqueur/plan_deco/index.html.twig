@@ -40,9 +40,9 @@
             </thead>
             <tbody>
             {% for plan in plans %}
-                <tr>
+                <tr class="{% if plan.priorite=="Urgent" %}bg-danger{% endif %}">
                     <td>{{ plan.id }}</td>
-                    <td>{{ plan.user.nom }} {{ plan.user.prenom}}</td>
+                    <td>{{ plan.user.entreprise }}</td>
                     <td>{{ plan.name }}</td>
                     <td>{{ plan.chantier }}</td>
                     <td>{{ plan.tonage }} Kg</td>
@@ -62,36 +62,23 @@
                         {% endif %}
                     <td>
                         <div class="dropdown">
-                                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                    Action
-                                    <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                    <a class="dropdown-item" href="{{ path('app_decortiqueur_plan_deco_show', {'id': plan.id}) }}"><i class="fa fa-search"></i> Afficher le plan</a>
-                                    {% if plan.etat != constant('App\\Entity\\Plan::PLAN_STATUS_ENCOURS') %}
-                                      <a class="dropdown-item" href="#">
-                                        {{ include('decortiqueur/plan_deco/_decortiquer_form.html.twig') }}
-                                      </a>
-                                    {% endif %}
-                                    
-                                    {% if plan.etat !=
-												              constant('App\\Entity\\Plan::PLAN_STATUS_ACTIVE') %}
-                                     <a href="{{ path('app_decortiqueur_plan_verification_decortiquer', {'id': plan.id}) }}">Terminer</a><br>
-                                      
-                                      {# <a class="dropdown-item" href="#">
-                                        <form method="post" action="{{ path('app_decortiqueur_plan_deco_terminer', {'id': plan.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
-                                            <input type="hidden" name="_token" value="{{ csrf_token('terminer' ~ plan.id) }}">
-                                              <i class="fa fa-check"></i> 
-                                            <button style="border:none; background:none; padding-left:14px;">Terminer</button>
-                                        </form>
-                                      </a> #}
-                                   {% endif %}   
-                                </ul>
-                            </div>
-                        {# <a href="{{ path('app_decortiqueur_plan_deco_show', {'id': plan.id}) }}">Afficher</a><br>
-                        <a style="color:green" href="{{ path('app_decortiqueur_plan_deco_show', {'id': plan.id}) }}">decortiquer</a><br>
-                        <a style="color:red" href="{{ path('app_decortiqueur_plan_deco_show', {'id': plan.id}) }}">Terminer</a><br> #}
-                        
+                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                Action
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                <a class="dropdown-item" href="{{ path('app_decortiqueur_plan_deco_show', {'id': plan.id}) }}"><i class="fa fa-search"></i> Afficher le plan</a>
+                                {% if plan.etat == constant('App\\Entity\\Plan::PLAN_STATUS_ENATTENTE') %}
+                                  <a class="ml-4" href="{{ path('app_decortiqueur_plan_deco_afficher', {'id': plan.id}) }}">Décortiquer
+                                  </a>
+                                {% endif %}
+                                
+                                {% if plan.etat ==
+                                  constant('App\\Entity\\Plan::PLAN_STATUS_ENCOURS') %}
+                                  <a class="ml-4" href="{{ path('app_decortiqueur_plan_verification_decortiquer', {'id': plan.id}) }}">Terminer</a><br>
+                                {% endif %}   
+                            </ul>
+                        </div>                        
                     </td>
                 </tr>
             {% else %}
