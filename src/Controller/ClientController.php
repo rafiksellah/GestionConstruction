@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\UserPasswordType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
@@ -38,13 +39,15 @@ class ClientController extends AbstractController
         EntityManagerInterface $manager,
         UserPasswordHasherInterface $hasher
     ): Response {
+        $choosenUser = $this->getUser();
         $form = $this->createForm(UserPasswordType::class);
-
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($hasher->isPasswordValid($choosenUser, $form->getData()['plainPassword'])) {
-                $choosenUser->setPassword(
-                    $form->getData()['newPassword']
+            $choosenUser->setPassword(
+                $hasher->hashPassword(
+                    $choosenUser,
+                    $form->get('newPassword')->getData()
+                )
                 );
 
                 $this->addFlash(
@@ -55,13 +58,7 @@ class ClientController extends AbstractController
                 $manager->persist($choosenUser);
                 $manager->flush();
 
-                return $this->redirectToRoute('recipe.index');
-            } else {
-                $this->addFlash(
-                    'warning',
-                    'Le mot de passe renseigné est incorrect.'
-                );
-            }
+                return $this->redirectToRoute('app_client');
         }
 
         return $this->render('client/edit_password.html.twig', [
