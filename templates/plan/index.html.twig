@@ -31,6 +31,7 @@
                     <th>Chantier</th>
                     <th>Notes</th>
                     <th>Date</th>
+                    <th>Date Ajout</th>
                     <th>Priorité</th>
                     <th>Etat</th>
                     <th>actions</th>
@@ -44,6 +45,7 @@
                     <td>{{ plan.chantier }}</td>
                     <td>{{ plan.notes }}</td>
                     <td>{{ plan.date ? plan.date|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>{{ plan.createdAt ? plan.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                     <td>{{ plan.priorite }}</td>
                     <td>
                       {% if plan.etat ==
@@ -52,15 +54,59 @@
 												{% elseif plan.etat ==
 												constant('App\\Entity\\Plan::PLAN_STATUS_ENCOURS') %}
                         <h6><span class="badge badge-primary ml-2">Encours</span></h6>
-												{% elseif plan.etat ==
-												constant('App\\Entity\\Plan::PLAN_STATUS_ACTIVE') %}
-                        <h6><span class="badge badge-danger ml-2">Terminer</span></h6>
                         {% endif %}
                     <td>
                         <a href="{{ path('app_plan_show', {'id': plan.id}) }}"><i class="fa-solid fa-magnifying-glass mr-2 fa-2x"></i></a>
                         {% if plan.etat ==
 												constant('App\\Entity\\Plan::PLAN_STATUS_ENATTENTE') %}
                           <a href="{{ path('app_plan_edit', {'id': plan.id}) }}"><i class="fa-solid fa-edit fa-2x"></i></a>
+                        {% endif %}
+                        
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="10">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div> 
+
+        <div class="container-fluid mt-4">
+          <h1 class="m-0">Plans Terminés</h1>
+          <table id="myTable" class="table table-striped mt-4">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Chantier</th>
+                    <th>Notes</th>
+                    <th>Date</th>
+                    <th>Priorité</th>
+                    <th>Etat</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for plan_termine in plans_termines %}
+                <tr class="{% if plan_termine.priorite=="Urgent" %}bg-danger{% endif %}">
+                    <td>{{ plan_termine.id }}</td>
+                    <td>{{ plan_termine.name }}</td>
+                    <td>{{ plan_termine.chantier }}</td>
+                    <td>{{ plan_termine.notes }}</td>
+                    <td>{{ plan_termine.date ? plan_termine.date|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>{{ plan_termine.priorite }}</td>
+                    <td>
+												{% if plan_termine.etat ==
+												constant('App\\Entity\\Plan::PLAN_STATUS_ACTIVE') %}
+                        <h6><span class="badge badge-danger ml-2">Terminer</span></h6>
+                        {% endif %}
+                    <td>
+                        <a href="{{ path('app_plan_show', {'id': plan_termine.id}) }}"><i class="fa-solid fa-magnifying-glass mr-2 fa-2x"></i></a>
+                        {% if plan_termine.etat ==
+												constant('App\\Entity\\Plan::PLAN_STATUS_ENATTENTE') %}
+                          <a href="{{ path('app_plan_edit', {'id': plan_termine.id}) }}"><i class="fa-solid fa-edit fa-2x"></i></a>
                         {% endif %}
                         
                     </td>

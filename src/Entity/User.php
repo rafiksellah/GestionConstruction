@@ -50,7 +50,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean')]
     private $isVerified = false;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Plan::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Plan::class, orphanRemoval: true,cascade:["persist"])]
     private Collection $plans;
 
     #[ORM\OneToMany(mappedBy: 'decortiqueurs', targetEntity: Plan::class)]
@@ -198,7 +198,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function isVerified(): bool
+    // public function isVerified(): bool
+    // {
+    //     return $this->isVerified;
+    // }
+
+    public function getIsVerified(): ?bool
     {
         return $this->isVerified;
     }
@@ -240,7 +245,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
     public function __toString() {
-        return $this->nom.' '.$this->prenom;
+        if ($this->entreprise ) {
+            return $this->entreprise;
+        }
+        else {
+            return $this->nom.' '.$this->prenom;
+        }
     }
 
     /**

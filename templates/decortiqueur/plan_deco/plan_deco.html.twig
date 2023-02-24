@@ -43,16 +43,16 @@
                             <td>{{ plan.chantier }}</td>
                         </tr>
                         <tr>
-                            <th>Tonage</th>
-                            <td>{{ plan.tonage }}</td>
-                        </tr>
-                        <tr>
                             <th>Notes</th>
                             <td>{{ plan.notes }}</td>
                         </tr>
                         <tr>
                             <th>Date</th>
                             <td>{{ plan.date ? plan.date|date('Y-m-d H:i:s') : '' }}</td>
+                        </tr>
+                        <tr>
+                            <th>Date Ajout</th>
+                            <td>{{ plan.createdAt ? plan.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                         </tr>
                         <tr>
                             <th>Priorite</th>

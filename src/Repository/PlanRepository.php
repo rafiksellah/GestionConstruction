@@ -39,20 +39,34 @@ class PlanRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Plan[] Returns an array of Plan objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('p.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+   /**
+    * @return Plan[] Returns an array of Plan objects
+    */
+   public function findPlansNonTerminer($user, $etat): array
+   {
+       return $this->createQueryBuilder('p')
+           ->andWhere('p.etat != :etat')
+           ->andWhere('p.user = :user')
+           ->setParameter('user', $user)
+           ->setParameter('etat', $etat)
+           ->orderBy('p.priorite', 'ASC')
+           ->getQuery()
+           ->getResult()
+       ;
+   }
+   /**
+    * @return Plan[] Returns an array of Plan objects
+    */
+   public function findALLPlansNonTerminer($etat): array
+   {
+       return $this->createQueryBuilder('p')
+           ->andWhere('p.etat != :etat')
+           ->setParameter('etat', $etat)
+           ->orderBy('p.priorite', 'ASC')
+           ->getQuery()
+           ->getResult()
+       ;
+   }
 
 //    public function findOneBySomeField($value): ?Plan
 //    {

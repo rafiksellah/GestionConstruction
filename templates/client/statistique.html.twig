@@ -1,0 +1,76 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block title %}Statistiques{% endblock %}
+    {# {% block stylesheets %}
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" integrity="sha512-/zs32ZEJh+/EO2N1b0PEdoA10JkdC3zJ8L5FTiQu82LR9S/rOQNfQN7U59U9BC12swNeRAz3HSzIL2vpp4fv3w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    {% endblock %} #}
+{% block body %}
+      <div class="content-wrapper">
+      <div class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1 class="m-0">Mes statistiques</h1>
+            </div> 
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item active">Mes statistiques</li>
+              </ol>
+            </div> 
+          </div> 
+        </div> 
+      </div>
+      
+      <section class="content">
+        <div class="container-fluid">
+          {{ form_start(form) }}
+            <div class="d-flex justify-content-around">
+                <div class="mb-2">
+                    <p>De</p>
+                    {{ form_widget(form.startDate) }}
+
+                </div>
+                <div class="mb-2">
+                    <p>A </p>
+                    {{ form_widget(form.endDate) }}
+                </div>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-success">Filtrer</button><br>
+            </div><br>
+            <div class="container">
+              {% if form.vars.value.startDate   is not null %}
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th scope="col">ID client</th>
+                      <th scope="col">Client</th>
+                      <th scope="col">Total tonnage CF</th>
+                      <th scope="col">Total tonnage CA</th>
+                      <th scope="col">Total tonnage TS</th>
+                      <th scope="col">Total tonnage(CA+CF+TS)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for total in totals %}
+                      <tr>
+                        <th scope="row">{{total.id}}</th>
+                        <td>{{total.entreprise}}</td>
+                        <td>{{total.sum2}}</td>
+                        <td>{{total.sum3}}</td>
+                        <td>{{total.sum4}}</td>
+                        <td>{{total.sum2 + total.sum3+total.sum4}}</td>
+                      </tr>    
+                    {% endfor %}
+                  </tbody>
+                </table>
+                {% endif %}
+            </div>
+          {{ form_end(form) }}
+        </div> 
+      </section>
+    </div>
+
+
+{% endblock %}

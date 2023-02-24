@@ -68,17 +68,16 @@ class UserController extends AbstractController
         $form = $this->createForm(UsereditType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            dd($request->request->get('useredit'));
             // dd($request->request->get('useredit'));echo "<pre>";print_r($request->request);die();
             
-            if ($request->request->get('useredit')['password']!="") {
-                $user->setPassword(
-                    $passwordEncoder->hashPassword(
-                        $user,
-                        $form->get('password')->getData()
-                    )
-                );
-            }    
+            // if ($request->request->get('useredit')['password']!="") {
+            //     $user->setPassword(
+            //         $passwordEncoder->hashPassword(
+            //             $user,
+            //             $form->get('password')->getData()
+            //         )
+            //     );
+            // }    
             $userRepository->save($user, true);
 
             return $this->redirectToRoute('app_admin_user_index', [], Response::HTTP_SEE_OTHER);

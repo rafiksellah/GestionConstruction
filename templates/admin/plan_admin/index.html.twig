@@ -30,9 +30,9 @@
                     <th>Client</th>
                     <th>Name</th>
                     <th>Chantier</th>
-                    <th>Tonage</th>
                     <th>Notes</th>
                     <th>Date</th>
+                    <th>Date Ajout</th>
                     <th>Priorité</th>
                     <th>Etat</th>
                     <th>actions</th>
@@ -46,9 +46,9 @@
                     <td>{{ plan.user.entreprise }}</td>
                     <td>{{ plan.name }}</td>
                     <td>{{ plan.chantier }}</td>
-                    <td>{{ plan.tonage }} Kg</td>
                     <td>{{ plan.notes }}</td>
                     <td>{{ plan.date ? plan.date|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>{{ plan.createdAt ? plan.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                     <td>{{ plan.priorite }}</td>
                     <td>
                       {% if plan.etat ==

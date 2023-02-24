@@ -17,12 +17,15 @@ class PlanController extends AbstractController
     #[Route('/', name: 'app_plan_index', methods: ['GET'])]
     public function index(PlanRepository $planRepository): Response
     {
+        $etat=Plan::PLAN_STATUS_ACTIVE;
         $user = $this->getUser();
         if ($user->getRoles()[0] == "ROLE_USER") {
-            $plans = $planRepository->findBy(["user"=>$user->getId()]);
+            $plans = $planRepository->findPlansNonTerminer($user,$etat);
+            $plans_termines= $planRepository->findBy(["user"=>$user->getId(),"etat"=>$etat]);
         }
         return $this->render('plan/index.html.twig', [
             'plans' => $plans,
+            'plans_termines'=>$plans_termines,
         ]);
     }
 

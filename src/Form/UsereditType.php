@@ -43,14 +43,14 @@ class UsereditType extends AbstractType
             'required' => true,
             'attr' => ['class' =>'form-control'],
         ])
-            ->add('password', PasswordType::class, [
-                'attr' => ['class' => 'form-control'],
-                'required'=>false,
-                // pour pouvoir envoyer un champ vide dans l'edit
-                'empty_data' => '',
-                'mapped'=>false,
-                //-----------------
-            ])
+            // ->add('password', PasswordType::class, [
+            //     'attr' => ['class' => 'form-control'],
+            //     'required'=>false,
+            //     // pour pouvoir envoyer un champ vide dans l'edit
+            //     'empty_data' => '',
+            //     'mapped'=>false,
+            //     //-----------------
+            // ])
         ->add('entreprise',TextType::class, [
             'label' => false,
                 'attr' => ['class' => 'form-control'],

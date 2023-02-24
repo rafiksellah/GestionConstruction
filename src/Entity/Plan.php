@@ -58,9 +58,6 @@ class Plan
     private Collection $fiechierDeco;
 
     #[ORM\Column(nullable: true)]
-    private ?float $tonage = 0;
-
-    #[ORM\Column(nullable: true)]
     private ?float $tonnageTS = 0;
 
     #[ORM\Column(nullable: true)]
@@ -269,18 +266,6 @@ class Plan
         return $this;
     }
 
-    public function getTonage(): ?float
-    {
-        return $this->tonage;
-    }
-
-    public function setTonage(?float $tonage): self
-    {
-        $this->tonage = $tonage;
-
-        return $this;
-    }
-
     public function getTonnageTS(): ?float
     {
         return $this->tonnageTS;
@@ -317,4 +302,8 @@ class Plan
         return $this;
     }
 
+    public function __toString()
+    {
+        return $this->user;
+    }
 }

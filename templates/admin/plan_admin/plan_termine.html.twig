@@ -8,12 +8,12 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0">plans</h1>
+              <h1 class="m-0">plans Terminés</h1>
             </div> 
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">Plans</li>
+                <li class="breadcrumb-item active">plans Terminés</li>
               </ol>
             </div> 
           </div> 
@@ -22,7 +22,6 @@
       
       <section class="content">
         <div class="container-fluid">
-          {# <a class="btn btn-success mt-2 mb-2" href="{{ path('app_admin_plan_admin_new') }}">Ajouter un plan</a> #}
           <table id="example1" class="table table-striped mt-4">
             <thead>
                 <tr>
@@ -36,10 +35,11 @@
                     <th>Priorité</th>
                     <th>Etat</th>
                     <th>actions</th>
+                    <th>Decortiqueur Nom</th>
                 </tr>
             </thead>
             <tbody>
-            {% for plan in plans %}
+            {% for plan in plans_termines %}
                 <tr class="{% if plan.priorite=="Urgent" %}bg-danger{% endif %}">
                     <td>{{ plan.id }}</td>
                     <td>{{ plan.user.entreprise }}</td>
@@ -51,34 +51,15 @@
                     <td>{{ plan.priorite }}</td>
                     <td>
                       {% if plan.etat ==
-                            constant('App\\Entity\\Plan::PLAN_STATUS_ENATTENTE') %}
-                            <h6><span class="badge badge-info ml-2">En attente</span></h6>
-                            {% elseif plan.etat ==
-                            constant('App\\Entity\\Plan::PLAN_STATUS_ENCOURS') %}
-                        <h6><span class="badge badge-primary ml-2">Encours</span></h6>
-												{% elseif plan.etat ==
-												constant('App\\Entity\\Plan::PLAN_STATUS_ACTIVE') %}
+                        constant('App\\Entity\\Plan::PLAN_STATUS_ACTIVE') %}
                         <h6><span class="badge badge-danger ml-2">Terminer</span></h6>
                         {% endif %}
                     <td>
-                        <div class="dropdown">
-                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                Action
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                <a class="dropdown-item" href="{{ path('app_decortiqueur_plan_deco_show', {'id': plan.id}) }}"><i class="fa fa-search"></i> Afficher le plan</a>
-                                {% if plan.etat == constant('App\\Entity\\Plan::PLAN_STATUS_ENATTENTE') %}
-                                  <a class="ml-4" href="{{ path('app_decortiqueur_plan_deco_afficher', {'id': plan.id}) }}">Décortiquer
-                                  </a>
-                                {% endif %}
-                                
-                                {% if plan.etat ==
-                                  constant('App\\Entity\\Plan::PLAN_STATUS_ENCOURS') %}
-                                  <a class="ml-4" href="{{ path('app_decortiqueur_plan_verification_decortiquer', {'id': plan.id}) }}">Terminer</a><br>
-                                {% endif %}   
-                            </ul>
-                        </div>                        
+                        <a href="{{ path('app_admin_plan_admin_show', {'id': plan.id}) }}"><i class="fa-solid fa-magnifying-glass mr-2 fa-2x"></i></a>
+                        
+                    </td>
+                    <td>
+                        {{plan.decortiqueurs}}                      
                     </td>
                 </tr>
             {% else %}

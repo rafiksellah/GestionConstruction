@@ -21,12 +21,23 @@ class PlanAdminController extends AbstractController
     #[Route('/', name: 'app_admin_plan_admin_index', methods: ['GET'])]
     public function index(PlanRepository $planRepository): Response
     {
-        $plans = $planRepository->findAll();
+        $etat=Plan::PLAN_STATUS_ACTIVE;
+        $plans = $planRepository->findALLPlansNonTerminer($etat);
         return $this->render('admin/plan_admin/index.html.twig', [
             'plans' => $plans,
         ]);
     }
-
+    
+    #[Route('/plans_termines', name: 'app_admin_plan_plans_termines', methods: ['GET'])]
+    public function plans_termines(PlanRepository $planRepository): Response
+    {
+        $etat=Plan::PLAN_STATUS_ACTIVE;
+        $plans_termines = $planRepository->findBy(["etat"=>$etat]);
+        return $this->render('admin/plan_admin/plan_termine.html.twig', [
+            'plans_termines' => $plans_termines,
+        ]);
+    }
+    
     #[Route('/new', name: 'app_admin_plan_admin_new', methods: ['GET', 'POST'])]
     public function new(Request $request, PlanRepository $planRepository): Response
     {

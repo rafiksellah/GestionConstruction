@@ -23,14 +23,15 @@
     
     <section class="content">
       <div class="container-fluid">
-        {% for message in app.flashes('success') %}
-        <div class="alert alert-success">
-            {{ message }}
-        </div>
-    {% endfor %}
-        
-        
+          {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+          {% endfor %}   
       </div> 
+      <div class="continer">
+        <a href="{{path('user.edit.password',{'id': user.id})}}" class="btn btn-success"></a>
+      </div>
     </section>
     
 </div>
