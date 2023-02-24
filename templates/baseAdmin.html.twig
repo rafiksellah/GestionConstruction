@@ -88,7 +88,8 @@
         $(function () {
             $("#example1").DataTable({
                 "responsive": true, "lengthChange": false, "autoWidth": false,
-                "buttons": ["copy", "csv", "excel", "pdf", "print"]
+                "buttons": ["copy", "csv", "excel", "pdf", "print"],
+                "order": [[7, 'desc']]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $('#example2').DataTable({
                 "paging": true,
@@ -97,6 +98,7 @@
                 "info": true,
                 "autoWidth": false,
                 "responsive": true,
+                "order": [[7, 'desc']]
             });
         });
     </script>
@@ -104,7 +106,8 @@
         $(function () {
             $("#myTable").DataTable({
                 "responsive": true, "lengthChange": false, "autoWidth": false,
-                "buttons": ["copy", "csv", "excel", "pdf", "print"]
+                "buttons": ["copy", "csv", "excel", "pdf", "print"],
+                "order": [[7, 'desc']]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $('#example2').DataTable({
                 "paging": true,
@@ -113,6 +116,7 @@
                 "info": true,
                 "autoWidth": false,
                 "responsive": true,
+                "order": [[7, 'desc']]
             });
         });
     </script>
