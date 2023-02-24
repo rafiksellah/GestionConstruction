@@ -25,17 +25,22 @@ class Plan1Type extends AbstractType
     }
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $users = $this->userRepository->findAll();
-        // foreach ($users as $key => $user) {
-        //     if ($user->getRoles()[0] == "ROLE_USER" ) {
-        //        $nom = $user->getNom().'-'.$user->getPrenom();
-        //     }
-        // }
         $builder
         ->add('name', TextType::class, [
             'label' => false,
                 'attr' => ['class' => 'form-control'],
             ])  
+            ->add('user', EntityType::class, [
+                'class' => User::class,
+                // 'choices' => $userChoices,
+                'label' => 'Sélectionnez un client',
+                'required' => true,
+                'attr' => ['class' => 'form-control'],
+                'query_builder' => function (UserRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->where('u.isClient = 1');
+                }
+            ]) 
             ->add('chantier',TextType::class, [
                 'label' => false,
                     'attr' => ['class' => 'form-control'],
@@ -66,11 +71,7 @@ class Plan1Type extends AbstractType
                 'mapped' => false,
                 'required' => false]
                 )
-            ->add('user',EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'nom',
-                'attr' => ['class' => 'form-control'],
-            ])
+            
         ;
     }
 

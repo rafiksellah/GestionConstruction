@@ -12,7 +12,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           {% if app.user.roles[0]=="ROLE_USER" %}
             <li class="nav-item">
-              <a href="{{path('app_client')}}" class="nav-link">
+              <a href="{{path('client_statistique')}}" class="nav-link">
                 <i class="nav-icon fas fa-columns"></i>
                 <p>
                   Dashboard
@@ -34,6 +34,14 @@
                 <i class="nav-icon fas fa-columns"></i>
                 <p>
                   Dashboard
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{path('app_decor_plan_plans_termines')}}" class="nav-link">
+                <i class="nav-icon fas fa-columns"></i>
+                <p>
+                  Plans terminés
                 </p>
               </a>
             </li>
@@ -67,13 +75,21 @@
               </a>
             </li>
             <li class="nav-item">
-            <a href="{{path('app_admin_plan_admin_index')}}" class="nav-link">
-              <i class="far fa-file nav-icon"></i>
-              <p>
-                Plans
-              </p>
-            </a>
-          </li>
+              <a href="{{path('app_admin_plan_admin_index')}}" class="nav-link">
+                <i class="far fa-file nav-icon"></i>
+                <p>
+                  Plans
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{path('app_admin_plan_plans_termines')}}" class="nav-link">
+                <i class="far fa-file nav-icon"></i>
+                <p>
+                  Plans terminés
+                </p>
+              </a>
+            </li>
             <li class="nav-item">
               <a href="{{path('app_admin_user_index')}}" class="nav-link">
                 <i class="far fa-file nav-user"></i>
