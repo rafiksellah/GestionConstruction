@@ -13,7 +13,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active">Modifier un  utilisateur</li>
+                    <li class="breadcrumb-item active">Modifier l'utilisateur</li>
                     </ol>
                 </div> 
                 </div> 
@@ -26,7 +26,7 @@
                     <div class="col-md-6 mx-auto">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Ajouter un Utilisateur</h3>
+                            <h3 class="card-title">Modifier l'tilisateur</h3>
                         </div>
                         <form>
                         <div class="card-body">
@@ -46,10 +46,6 @@
                                 <label for="email">Email</label>
                                 {{form_widget(form.email)}}
                             </div>
-                            {# <div class="form-group">
-                                <label for="password">Password</label>
-                                {{form_widget(form.password)}}
-                            </div> #}
                             <div class="form-group">
                                 <label for="entreprise">Entreprise</label>
                                 {{form_widget(form.entreprise)}}
@@ -61,6 +57,7 @@
                         </div>
                         <div class="card-footer">
                             <button class="btn btn-primary">{{ button_label|default('Modifier') }}</button>
+                            <a class="btn btn-primary" href="{{path('app_admin_user_edit_password', {id: user.id})}}">Modifier mot de passe</a>
                         </div>
                         </form>
                     </div>

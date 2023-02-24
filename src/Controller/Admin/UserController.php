@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\User;
+use App\Form\PasswordEditType;
 use App\Form\UserType;
 use App\Form\UsereditType;
 use App\Repository\UserRepository;
@@ -21,28 +22,28 @@ class UserController extends AbstractController
     #[Route('/', name: 'app_admin_user_index', methods: ['GET'])]
     public function index(UserRepository $userRepository): Response
     {
-        $users = $userRepository->findBy(["isClient"=>true]);
+        $users = $userRepository->findBy(["isClient" => true]);
         return $this->render('admin/user/index.html.twig', [
             'users' => $users,
         ]);
     }
 
     #[Route('/new', name: 'app_admin_user_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, UserRepository $userRepository,UserPasswordHasherInterface $userPasswordHasher): Response
+    public function new(Request $request, UserRepository $userRepository, UserPasswordHasherInterface $userPasswordHasher): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            
+
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
                     $form->get('plainPassword')->getData()
                 )
-                );
-                $user->setRoles(["ROLE_USER"]);
-                $user->setIsClient(true);
+            );
+            $user->setRoles(["ROLE_USER"]);
+            $user->setIsClient(true);
             $userRepository->save($user, true);
 
             return $this->redirectToRoute('app_admin_user_index', [], Response::HTTP_SEE_OTHER);
@@ -63,21 +64,11 @@ class UserController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_admin_user_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, User $user, UserRepository $userRepository,UserPasswordHasherInterface $passwordEncoder): Response
+    public function edit(Request $request, User $user, UserRepository $userRepository, UserPasswordHasherInterface $passwordEncoder): Response
     {
         $form = $this->createForm(UsereditType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            // dd($request->request->get('useredit'));echo "<pre>";print_r($request->request);die();
-            
-            // if ($request->request->get('useredit')['password']!="") {
-            //     $user->setPassword(
-            //         $passwordEncoder->hashPassword(
-            //             $user,
-            //             $form->get('password')->getData()
-            //         )
-            //     );
-            // }    
             $userRepository->save($user, true);
 
             return $this->redirectToRoute('app_admin_user_index', [], Response::HTTP_SEE_OTHER);
@@ -89,10 +80,32 @@ class UserController extends AbstractController
         ]);
     }
 
+    #[Route('/{id}/edit/password', name: 'app_admin_user_edit_password', methods: ['GET', 'POST'])]
+    public function editpassword(Request $request, User $user, UserRepository $userRepository, UserPasswordHasherInterface $userPasswordHasher): Response
+    {
+        $form = $this->createForm(PasswordEditType::class, []);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user->setPassword(
+                $userPasswordHasher->hashPassword(
+                    $user,
+                    $form->get('password')->getData()
+                )
+            );
+            $userRepository->save($user, true);
+
+            return $this->redirectToRoute('app_admin_user_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('admin/user/editpassword.html.twig', [
+            'form' => $form,
+        ]);
+    }
+
     #[Route('/{id}', name: 'app_admin_user_delete', methods: ['POST'])]
     public function delete(Request $request, User $user, UserRepository $userRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
             $userRepository->remove($user, true);
         }
 
