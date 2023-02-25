@@ -42,10 +42,13 @@ class PlanController extends AbstractController
             // On boucle sur les images
             foreach($fichiers as $fich){
                 // On génère un nouveau nom de fichier
-                $fichier = md5(uniqid()).'.'.$fich->guessExtension();
+                $extension = $fich->guessExtension();
+                $name = $fich->getClientOriginalName();
+                // Créez un nom de fichier unique en utilisant la date et l'heure actuelles
+                $fichier = 'file_' . $name. '.' . $extension;
                 // On copie le fichier dans le dossier uploads
                 $fich->move(
-                    $this->getParameter('fichierdecor_directory'),
+                    $this->getParameter('fichier_directory'),
                     $fichier
                 );
                 

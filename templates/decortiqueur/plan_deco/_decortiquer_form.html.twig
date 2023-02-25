@@ -1,4 +1,4 @@
 <form method="post" action="{{ path('app_decortiqueur_plan_deco_decortiquer', {'id': plan.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir decortique ce plan?');">
     <input type="hidden" name="_token" value="{{ csrf_token('decortique' ~ plan.id) }}">
-    <button class="btn btn-success"> Decortique</button>
+    <button class="btn btn-success"> Décortiquer </button>
 </form>

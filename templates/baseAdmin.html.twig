@@ -3,6 +3,9 @@
 
 <head>
     <meta charset="utf-8">
+    <meta name="description" content="Externalisez le  décorticage de vos plans d'armatures sans engagement">
+    <meta name="keywords" content="décorticage, construction, plan">
+    <meta name="author" content="décortiqueur">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
         {% if (app.user.roles[0]=="ROLE_USER") %}
@@ -86,42 +89,6 @@
 
     <script>
         $(function () {
-            $("#example1").DataTable({
-                "responsive": true, "lengthChange": false, "autoWidth": false,
-                "buttons": ["copy", "csv", "excel", "pdf", "print"],
-                "order": [[7, 'desc']]
-            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-            $('#example2').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
-                "order": [[7, 'desc']]
-            });
-        });
-    </script>
-    <script>
-        $(function () {
-            $("#myTable").DataTable({
-                "responsive": true, "lengthChange": false, "autoWidth": false,
-                "buttons": ["copy", "csv", "excel", "pdf", "print"],
-                "order": [[7, 'desc']]
-            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-            $('#example2').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
-                "order": [[7, 'desc']]
-            });
-        });
-    </script>
-    <script>
-        $(function () {
             $("#plantermine").DataTable({
                 "responsive": true,
                 "lengthChange": false,
@@ -130,6 +97,27 @@
             });
         });
     </script>
+    <script>
+        $(function () {
+            $("#mytable").DataTable({
+                "responsive": true,
+                "lengthChange": false,
+                "autoWidth": false,
+                "order": [[6, 'desc']]
+            });
+        });
+    </script>
+    <script>
+        $(function () {
+            $("#mytable1").DataTable({
+                "responsive": true,
+                "lengthChange": false,
+                "autoWidth": false,
+                "order": [[5, 'desc']]
+            });
+        });
+    </script>
+    
     <script>
         $(document).ready(function () {
             $('.js-datepicker').datepicker({

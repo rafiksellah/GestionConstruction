@@ -28,14 +28,14 @@
             {% endfor %}
             <div class="row">
                 <div class="col-md-7">
-                <table id="example1" class="table table-striped">
+                <table id="plantermine" class="table table-striped">
                     <tbody>
                         <tr>
                             <th>Id</th>
                             <td>{{ plan.id }}</td>
                         </tr>
                         <tr>
-                            <th>Name</th>
+                            <th>Nom</th>
                             <td>{{ plan.name }}</td>
                         </tr>
                         <tr>
@@ -66,11 +66,29 @@
                             <th>Fichiers Client</th>
                             <td>
                                 {% for fichier in plan.fichiers %}
-                                    <a href="{{ asset('/uploads/fichierClient/'~fichier.name) }}" alt="" width="50"><i class="fa fa-file fa-2x"></i>{{fichier.name}} </a>
+                                    <a target="_blank" href="{{ asset('/uploads/fichierClient/'~fichier.name) }}" alt="" width="50"><i class="fa fa-file fa-2x"></i>{{fichier.name}} </a>
                                 {% endfor %} 
                             </td>     
                         </tr>
                         <tr>
+                            <th>Fichiers Décortiqueur</th>
+                            <td>
+                                {% for fichier in plan.fiechierDeco %}
+                                    <a target="_blank" href="{{ asset('/uploads/fichierDecor/'~fichier.name) }}" alt="" width="50"><i class="fa fa-file fa-2x"></i>{{fichier.name}} </a>
+                                {% endfor %} 
+                            </td>     
+                        </tr>
+                        <tr>
+                          <th>Tonnage TS</th>
+                          <td>{{ plan.tonnageTS}}</td>
+                        </tr>  
+                        <tr>  
+                          <th>Tonnage CA</th>
+                          <td>{{ plan.tonnageCA }}</td>
+                        </tr>  
+                        <tr>  
+                          <th>Tonnage CF</th>
+                          <td>{{ plan.tonnageCF }}</td>
                         </tr>
                     </tbody> 
                 </table>      
