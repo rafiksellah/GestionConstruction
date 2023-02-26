@@ -49,13 +49,7 @@ class UserAuthenticator extends AbstractLoginFormAuthenticator
             return new RedirectResponse($targetPath);
         }
 
-        // For example:
         $roles = $token->getRoleNames();
-        // dd($roles);
-        // $roles = array_map(function($role) {
-        //     return $role->getRole();
-        // }, $roles);
-
         if (in_array('ROLE_ADMIN', $roles)) {
             $response = new RedirectResponse($this->urlGenerator->generate('app_admin'));
         } elseif (in_array('ROLE_DECORTIQUEUR', $roles)) {
